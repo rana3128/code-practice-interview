@@ -1,3 +1,5 @@
+
+
 function capitalizeParts(inStr) {
     let started = false;
     let tmpStr = ""
