@@ -12,10 +12,13 @@ function search(arr, low, high, x) {
         return search(arr, mid + 1, high, x);
     }
 
+    // some changes made bu test 1
+
     if (arr[mid] <= x && x <= arr[high]) {
         return search(arr, mid + 1, high, x);
     }
     return search(arr, low, mid - 1, x);
+    Adding
 }
 
 console.log(search([4, 5, 6, 7, 8, 1, 2, 3], 0, 7, 2))
