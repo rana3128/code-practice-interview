@@ -1,29 +1,26 @@
-// const str = "aababcbacd";
-const str = "aabbabcedd";
+//                   9
+//                 8 9 8
+//               7 8 9 8 7
+//             6 7 8 9 8 7 6
+//           5 6 7 8 9 8 7 6 5
+//         4 5 6 7 8 9 8 7 6 5 4
+//       3 4 5 6 7 8 9 8 7 6 5 4 3
+//     2 3 4 5 6 7 8 9 8 7 6 5 4 3 2
+//   1 2 3 4 5 6 7 8 9 8 7 6 5 4 3 2 1
 
-function largestUnique(str) {
-    let start = 0;
-    let lSubStr = "";
-    let hmap = {};
+const pLeg = 9;
+for (let i = pLeg; i > 0; i--) {
+  let space = Math.floor(i / 2 - 1);
+  let line = "";
+  for (let s = 0; s < space; s++) {
+    line += " ";
+  }
+  for (let n = i; n <= i; n++) {
+    line += n;
+  }
+  for (let n = pLeg; n >= i; n--) {
+    line += n;
+  }
 
-    for (let i = 0; i <= str.length; i++) {
-        if (hmap[str[i]] || !str[i]) {
-
-            if (i - start > lSubStr.length) {
-                lSubStr = str.substring(start, i);
-            }
-
-            while(start < i && str[i] != str[start]){
-                delete hmap[str[start]];
-                start++;
-            }
-            start++;
-        } else {
-            hmap[str[i]] = true;
-        }
-    }
-
-    return lSubStr;
+  console.log(line);
 }
-
-console.log(largestUnique(str));
