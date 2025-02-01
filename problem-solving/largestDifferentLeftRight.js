@@ -1,29 +1,25 @@
 // find the largest difference between two elements such that the element of lesser value must come before the greater element
 
-const input = [5, 6, 8, 1, 9];
-
-function largestDiff(arr) {
-  const sorted = [...arr].sort((a, b) => a - b);
-
-  let left = 0;
-  let right = arr.length - 1;
-
-  while (left < right) {
-    const minPos = arr.indexOf(sorted[left])
-    const maxPos = arr.indexOf(sorted[right])
-    if (minPos < maxPos) {
-      return sorted[right] - sorted[left];
-    }
-    else {
-      if (sorted[left + 1] - sorted[left] > sorted[right] - sorted[right - 1]) {
-        right--;
-      } else {
-        left++
-      }
-    }
+const maxDifference = arr => {
+  if (arr.length < 2) {
+    throw new Error("Array must contain at least 2 elements");
   }
+  
+  const { maxDiff } = arr.slice(1).reduce(
+    ({ min, maxDiff }, curr) => {
+      const diff = curr - min;
+      return {
+        min: Math.min(min, curr),
+        maxDiff: Math.max(maxDiff, diff)
+      };
+    },
+    { min: arr[0], maxDiff: 0 }  // initialize maxDiff as 0
+  );
+  
+  return maxDiff;
+};
 
-}
-
-console.log(largestDiff(input));
+// Test example
+const input = [5, 6, 8, 2, 9, 1];
+console.log(maxDifference(input)); // Expected output: 7
 
