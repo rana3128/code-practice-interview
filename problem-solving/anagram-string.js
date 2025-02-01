@@ -4,47 +4,24 @@
 
 const input = ["eat", "tea", "tan", "ate", "nat", "bat"];
 
-function ana(arr) {
-    const anaAns = [];
-    let remmain = arr;
-    while (remmain.length > 0) {
-        const tmpArr = [];
-        const cAnas = [remmain[0]];
-        const currentStr = remmain[0];
-        const hmap = {}
-        for (let char of currentStr) {
-            if (hmap[char]) {
-                hmap[char] += 1;
-            } else {
-                hmap[char] = 1;
-            }
-        }
-        for (let i = 1; i < remmain.length; i++) {
-            const hmapT = {}
-            const currentStrT = remmain[i];
-            for (let char of currentStrT) {
-                if (hmapT[char]) {
-                    hmapT[char] += 1;
-                } else {
-                    hmapT[char] = 1;
-                }
-            }
-            let isAna = true;
-            Object.keys(hmap).forEach(char => {
-                if (hmap[char] != hmapT[char]) {
-                    isAna = false;
-                }
-            });
-            if (isAna) {
-                cAnas.push(currentStrT);
-            } else {
-                tmpArr.push(currentStrT);
-            }
-        }
-        remmain = tmpArr;
-        anaAns.push(cAnas);
+function groupAnagrams(arr) {
+  const map = new Map();
+
+  for (const word of arr) {
+    // Sort the characters of the word to form a key.
+    const key = word.split('').sort().join('');
+    
+    // If the key is not in the map, initialize an array.
+    if (!map.has(key)) {
+      map.set(key, []);
     }
-    return anaAns;
+    
+    // Push the original word into the correct anagram group.
+    map.get(key).push(word);
+  }
+  
+  // Convert the map values to an array of arrays.
+  return Array.from(map.values());
 }
 
-console.log(ana(input));
+console.log(groupAnagrams(input));
